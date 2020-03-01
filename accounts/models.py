@@ -7,10 +7,11 @@ class UserManager(BaseUserManager):
     Creates and saves a User with the given email, date of
     birth and password.
     """
-    def create_user(self,username,name ,password=""):
+
+    def create_user(self, username, name, password=""):
         username = username
         password = password
-        name     = name
+        name = name
         user = self.model(
             username=username,
             password=password,
@@ -19,7 +20,6 @@ class UserManager(BaseUserManager):
         user.set_password(password)
         user.save()
         return user
-
 
     def create_superuser(self, username, name, password):
         """
@@ -39,7 +39,7 @@ class UserManager(BaseUserManager):
 class User(AbstractBaseUser):
     username = models.CharField(max_length=100, unique=True)
     password = models.CharField(max_length=100)
-    name     = models.CharField(max_length=100)
+    name = models.CharField(max_length=100)
 
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
@@ -49,16 +49,16 @@ class User(AbstractBaseUser):
 
     objects = UserManager()
 
+    # Hobby Fields:
+    watched_films = models.ManyToManyField('films.Film')
 
     def __str__(self):
         return self.username
-
 
     def has_perm(self, perm, obj=None):
         "Does the user have a specific permission?"
         # Simplest possible answer: Yes, always
         return True
-
 
     def has_module_perms(self, app_label):
         "Does the user have permissions to view the app `app_label`?"
