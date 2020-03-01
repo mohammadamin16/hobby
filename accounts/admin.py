@@ -49,6 +49,7 @@ class UserChangeForm(forms.ModelForm):
         model = User
         fields = ('username', 'password')
 
+
 class UserAdmin(BaseUserAdmin):
     # The forms to add and change user instances
     form = UserChangeForm
