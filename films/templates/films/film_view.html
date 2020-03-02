@@ -1,0 +1,11 @@
+{% extends 'layout.html' %}
+{% load bootstrap4 %}
+{% block title %}
+Film View
+{% endblock %}
+{% block body %}
+    <p class="h1 text-center">{{ object.title }}</p>
+    <p class="h6 text-right">{{ object.imdbId }}</p>
+{% endblock %}
+
+

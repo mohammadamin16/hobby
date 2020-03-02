@@ -11,8 +11,10 @@
     <input type="submit">
     </form>
     <br>
-    {% for title in list_of_titles %}
+    {% for id,title in list_of_movies %}
+        <a href="{% url 'films:film-view' id %}">
         <p class="h1 text-center p-2 text-danger">{{title}}</p>
+        </a>
     {% endfor %}
 {% endblock %}
 

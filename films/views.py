@@ -1,9 +1,10 @@
 from django.shortcuts import render
-from django.views.generic import FormView, ListView
+from django.views.generic import FormView, ListView, DetailView
 from django.views.generic.edit import FormMixin
 from films.imdbDB import search
 import threading
 
+from films.models import Film
 from . import forms
 
 
@@ -20,23 +21,28 @@ class SearchView(FormMixin, ListView):
     def post(self, request, *args, **kwargs):
         form = self.form_class(request.POST)
         list_of_movies = []
-        print("before Id")
         if form.is_valid():
             list_of_movies = form.send_query()
-        print("After IDs")
 
-        # threads_list = []
-        list_of_titles = []
-        for movie in list_of_movies:
-            list_of_titles.append(movie[1])
-        # for movie_id in list_of_ids:
-        #     t = threading.Thread(target=search.get_title, args=(movie_id, list_of_titles))
-        #     threads_list.append(t)
-        # print("Before Starting Threads")
-        # for x in threads_list:
-        #     x.start()
-        # print("After Starting Threads")
-        # for x in threads_list:
-        #     x.join()
-        # print("FINISH")
-        return render(request, self.template_name, {'form': form, 'list_of_titles': list_of_titles})
+        return render(request, self.template_name, {'form': form, 'list_of_movies': list_of_movies})
+
+
+class FilmView(DetailView):
+    template_name = 'films/film_view.html'
+    model = Film
+    context_object_name = 'film'
+
+
+    def get_object(self, queryset=None):
+        movie_id = self.kwargs['movie_id']
+        try:
+            film = Film.objects.get(imdbId=movie_id)
+        except Film.DoesNotExist:
+            film = Film.objects.create(
+                imdbId=movie_id,
+                title=search.get_title(movie_id),
+            )
+        return film
+
+
+        return film
