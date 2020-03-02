@@ -5,12 +5,12 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <script src="BS/bootstrap-4.3.1/dist/js/bootstrap.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
     <meta charset="UTF-8">
-    <title>{{Brand}}</title>
+    <title>{% block title %}Hobby{% endblock %}</title>
 </head>
 <body class="bg-secondary">
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="{% url 'home' %}">Bobby</a>
+    <a class="navbar-brand" href="{% url 'home' %}">Hobby</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -23,7 +23,7 @@
           <a class="nav-link" href="{% url 'accounts:login' %}">Login</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Sigh Up</a>
+        <a class="nav-link" href="{% url 'films:search' %}">Films</a>
       </li>
     </ul>
     <span class="navbar-text">

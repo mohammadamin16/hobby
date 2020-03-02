@@ -6,19 +6,23 @@ from imdb import IMDb
 
 def search(query:str):
     imdb = IMDb()
-    response = imdb.search_movie_advanced(query, results=10)
-    ids = []
-    for result in response:
-        ID = result.getID()
-        ids.append(ID)
+    response = imdb.search_movie_advanced(query, results=7)
+    results = []
+    for movie in response:
+        m = (movie.getID(), movie['title'])
+        results.append(m)
 
-    return ids
+    print("RESULTS :", results)
+    return results
 
 
-def get_title(movie_id: int):
+def get_title(movie_id: int, list_of_ids:list):
+    print("____Starting new Thread", movie_id)
     imdb = IMDb()
     response = imdb.get_movie(movie_id)
-    return response['title']
+    title = response['title']
+    list_of_ids.append(title)
+    print("____I GOT IT!", title)
 
 
 def get_poster(movie_id: int):

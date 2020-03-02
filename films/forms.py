@@ -1,6 +1,14 @@
 from django import forms
-from django.contrib.auth.forms import AuthenticationForm
+from .imdbDB import search
 
 
-class LoginForm(AuthenticationForm):
-    pass
+class SearchForm(forms.Form):
+    query = forms.CharField()
+
+    def send_query(self):
+        q = self.cleaned_data['query']
+
+        return search.search(q)
+
+
+
