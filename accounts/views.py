@@ -9,3 +9,4 @@ class LoginView(FormView):
     template_name = 'accounts/login.html'
     form_class = LoginForm
     success_url = reverse_lazy('home')
+

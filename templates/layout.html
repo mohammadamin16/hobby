@@ -10,7 +10,7 @@
 <body class="bg-secondary">
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="#">Bobby</a>
+    <a class="navbar-brand" href="{% url 'home' %}">Bobby</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -20,7 +20,7 @@
         <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#"><a href="{% url 'accounts:login' %}">Login</a>
+          <a class="nav-link" href="{% url 'accounts:login' %}">Login</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="#">Sigh Up</a>
