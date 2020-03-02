@@ -1,0 +1,16 @@
+{% extends 'layout.html' %}
+{% load bootstrap4 %}
+{% block title %}
+Login Page
+{% endblock %}
+{% block body %}
+    <form action="" method="post">
+    {{ form.as_p }}
+        {% csrf_token %}
+    <input type="submit">
+    </form>
+{%  endblock %}
+
+
+
+
