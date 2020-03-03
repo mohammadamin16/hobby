@@ -1,0 +1,29 @@
+{% extends 'layout.html' %}
+{% load bootstrap4 %}
+{% load user_detail %}
+{% block title %}
+{{ user }}
+{% endblock %}
+{% block body %}
+    <div class="container text-center">
+    <p class="h1">{{ user.name }}</p>
+{#    <p class="h4">{{ user.username }}</p>#}
+    <div class="badge btn-primary text-left">Username</div><span class="badge badge-secondary ml-4">{{ user.username }}</span>
+    <br>
+    <div class="badge btn-primary text-left">Watched Movies</div><span class="badge badge-secondary ml-4">
+        {% with user.watched_films as w %}
+            {% if w|list_of_movies|linebreaksbr == "" %}
+            Nothing Yet!
+            <a href="{% url 'films:search' %}">Add</a>
+            {% else %}
+                {{ w|list_of_movies|linebreaksbr }}
+            {% endif %}
+        {% endwith %}
+    </span>
+    <br>
+
+
+
+    </div>
+{% endblock %}
+

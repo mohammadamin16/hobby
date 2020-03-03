@@ -21,9 +21,11 @@ Film View
         <br>
         <div class="badge btn-primary text-left">Writer</div><span class="badge badge-secondary ml-4">{{ film.writer }}</span>
         <br>
-{#        <div class="badge btn-primary text-left">Summary</div>#}
-{#            <span class="badge badge-secondary ml-4">{{ film.synopsis }}#}
-{#        </span>#}
+    {% if user.is_authenticated %}
+    <a href="{% url 'accounts:add-to-watched' film.imdbId %}">
+        <button class="btn btn-danger">+</button>
+    </a>
+    {% endif %}
     </div>
 
 {% endblock %}

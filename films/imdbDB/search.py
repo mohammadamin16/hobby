@@ -60,8 +60,10 @@ def get_info(movie_id: str):
     director = " ".join(director_names)
 
     top_250_films = 0 if str(movie.get('top 250 films')) == 'None' else movie.get('top 250 films')
-    synopsis = movie.get('synopsis')[0][:500] + "..."
-
+    try:
+        synopsis = movie.get('synopsis')[0][:500] + "..."
+    except TypeError:
+        synopsis = ""
     info = dict(
         title=title,
         imdbId=movie_id,
