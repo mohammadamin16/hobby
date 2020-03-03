@@ -3,10 +3,10 @@ from films.imdbDB import search
 register = template.Library()
 
 
-# def get_title(id_of_movie):
-#     """Returns & Find the Title of the movie by a ID"""
-#     response = search.get_title(id_of_movie)
+# def add_linebreaks(text):
+#     """add lines breaks< <br>, after some chars"""
+#
 #     return response
-
-
-# register.filter('get_title', get_title)
+#
+#
+# register.filter('add_linebreaks', add_linebreaks())

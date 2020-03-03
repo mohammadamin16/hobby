@@ -1,11 +1,29 @@
 {% extends 'layout.html' %}
 {% load bootstrap4 %}
+{% load movie_detail %}
 {% block title %}
 Film View
 {% endblock %}
 {% block body %}
-    <p class="h1 text-center">{{ object.title }}</p>
-    <p class="h6 text-right">{{ object.imdbId }}</p>
+    <div class="h1 text-center">{{ object.title }}<span class="badge badge-success badge-pill ml-3">{{ film.rating }}</span></div>
+    <div class="container w-50 align-self-center">
+        {% if film.top_250_films %}
+            <div class="btn badge-danger">Top {{ film.top_250_films }}</div>
+        {% endif %}
+        <br>
+        <div class="badge btn-primary text-left">Year</div><span class="badge badge-secondary ml-4">{{ film.year }}</span>
+        <br>
+        <div class="badge btn-primary text-left">Director</div><span class="badge badge-secondary ml-4">{{ film.director }}</span>
+        <br>
+        <div class="badge btn-primary text-left">Cast</div><span class="badge badge-secondary ml-4">{{ film.cast }}</span>
+        <br>
+        <div class="badge btn-primary text-left">Budget</div><span class="badge badge-secondary ml-4">{{ film.box_office }}</span>
+        <br>
+        <div class="badge btn-primary text-left">Writer</div><span class="badge badge-secondary ml-4">{{ film.writer }}</span>
+        <br>
+{#        <div class="badge btn-primary text-left">Summary</div>#}
+{#            <span class="badge badge-secondary ml-4">{{ film.synopsis }}#}
+{#        </span>#}
+    </div>
+
 {% endblock %}
-
-

@@ -2,6 +2,7 @@
   <dictionary name="amin">
     <words>
       <w>imdb</w>
+      <w>imdbid</w>
     </words>
   </dictionary>
 </component>

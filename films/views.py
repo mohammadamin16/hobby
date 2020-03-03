@@ -39,10 +39,6 @@ class FilmView(DetailView):
             film = Film.objects.get(imdbId=movie_id)
         except Film.DoesNotExist:
             film = Film.objects.create(
-                imdbId=movie_id,
-                title=search.get_title(movie_id),
+                **search.get_info(str(movie_id))
             )
-        return film
-
-
         return film
