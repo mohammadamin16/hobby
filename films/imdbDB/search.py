@@ -47,6 +47,7 @@ def get_info(movie_id: str):
     rating = movie.get('rating')
     votes = movie.get('votes')
     cover_url = movie.get("cover url")
+    fullsize_poster = movie.get_fullsizeURL()
     writer_people = movie.get('writer')
     write_names = []
     for w in writer_people:
@@ -74,6 +75,7 @@ def get_info(movie_id: str):
         rating=rating,
         votes=votes,
         cover_url=cover_url,
+        fullsize_poster= fullsize_poster,
         writer=writer,
         director=director,
         top_250_films=top_250_films,

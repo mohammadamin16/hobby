@@ -24,12 +24,15 @@ Film View
             <div class="badge btn-primary text-left">Writer</div><span class="badge badge-secondary ml-4">{{ film.writer }}</span>
             <br>
             {% if user.is_authenticated %}
-            <a href="{% url 'accounts:add-to-watched' film.imdbId %}"><button class="btn btn-danger" title="Add to Watch List">+</button></a>
+            <a href="{% url 'accounts:add-to-watched' film.imdbId %}"><button class="btn btn-danger mt-3" title="Add to Watch List">+</button></a>
             {% endif %}
         </div>
-        <div class="col-2">
-        <img src="{{ film.cover_url }}">
-        </div>
+            <div class="col-2">
+            <img src="{{ film.cover_url }}">
+
+            <a href="{{ film.fullsize_poster }}" download><button class="btn btn-outline-info mt-3">Download</button></a>
+
+            </div>
         </div>
     </div>
 {% endblock %}

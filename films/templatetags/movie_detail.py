@@ -3,10 +3,10 @@ from films.imdbDB import search
 register = template.Library()
 
 
-# def add_linebreaks(text):
-#     """add lines breaks< <br>, after some chars"""
-#
-#     return response
-#
-#
-# register.filter('add_linebreaks', add_linebreaks())
+def get_poster(movie_id):
+    """Return the Poster url of the given imdbID"""
+    return search.get_poster(movie_id)
+
+
+
+register.filter('get_poster', get_poster)

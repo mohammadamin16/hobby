@@ -12,6 +12,7 @@ class Film(models.Model):
     rating = models.FloatField()
     votes = models.IntegerField()
     cover_url = models.URLField()
+    fullsize_poster = models.URLField()
     # kind = models.CharField(max_length=100)
     # writer = models.ManyToManyField('People', related_name='writer')
     writer = models.CharField(max_length=200)
