@@ -1,5 +1,6 @@
 {% extends 'layout.html' %}
 {% load bootstrap4 %}
+{% load bootstrap %}
 {% load movie_detail %}
 {% block title %}
 Film View
@@ -46,4 +47,37 @@ Film View
             </div>
         </div>
     </div>
+    <hr>
+    <div class="container">
+
+    {% for comment in comments %}
+        <p class="row bg-dark">
+            <div class="col">
+                <span class="badge badge-success">{{ comment.writer }}:</span>
+            </div>
+            <div class="col">
+                <span class="badge badge-info">{{ comment.text }}</span>
+            </div>
+        </p>
+
+    {% endfor %}
+
+
+
+
+    <nav class="navbar navbar-light">
+        <form class="form-inline" action="" method="post">
+            {% csrf_token %}
+                <div class="input-group">
+                    <input name="text" type="text"  class="form-control" placeholder="Share you idea..." aria-label="Username" aria-describedby="basic-addon1">
+                <div class="input-group-prepend">
+                    <input type="submit" class="input-group-text" id="basic-addon1" value="Comment">
+                </div>
+            </div>
+        </form>
+    </nav>
+
+
+    </div>
+
 {% endblock %}

@@ -2,6 +2,9 @@ from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import FormView, ListView, DetailView, RedirectView
 from django.views.generic.edit import FormMixin
+
+from accounts.forms import CommentForm
+from accounts.models import Comment
 from films.imdbDB import search
 from django.http import HttpResponseRedirect
 
@@ -46,10 +49,20 @@ class SearchView(FormMixin, ListView):
         return render(request, self.template_name, {'form': form, 'list_of_films': list_of_films})
 
 
-class FilmView(DetailView):
+class FilmView(FormMixin, DetailView):
     template_name = 'films/film_view.html'
     model = Film
     context_object_name = 'film'
+    form_class = CommentForm
+
+
+    def get_context_data(self, **kwargs):
+        context = super(FilmView, self).get_context_data(**kwargs)
+        context['form'] = self.form_class(initial=self.initial)
+        movie_id = self.kwargs['movie_id']
+        comments = Film.objects.get(imdbId=movie_id).comments.all()
+        context['comments'] = comments
+        return context
 
 
     def get_object(self, queryset=None):
@@ -61,6 +74,19 @@ class FilmView(DetailView):
                 **search.get_info(str(movie_id))
             )
         return film
+
+    def post(self, request, *args, **kwargs):
+        movie_id = self.kwargs['movie_id']
+        form = self.form_class(request.POST)
+        if form.is_valid():
+            comment = Comment.objects.create(
+                text=form.cleaned_data['text'],
+                writer=request.user
+            )
+            comment.save()
+            film = Film.objects.get(imdbId=movie_id)
+            film.comments.add(comment)
+            return HttpResponseRedirect(reverse_lazy('films:film-view', kwargs={'movie_id':movie_id}))
 
 
 class FilmViewRedirector(RedirectView):

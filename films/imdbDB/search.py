@@ -6,7 +6,7 @@ from imdb import IMDb
 
 def search(query: str):
     imdb = IMDb()
-    response = imdb.search_movie_advanced(query, sort='votes', results=5)
+    response = imdb.search_movie_advanced(query, sort='rating', results=5)
     results = []
     for movie in response:
         m = movie.getID()

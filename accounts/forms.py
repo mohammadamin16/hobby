@@ -22,5 +22,8 @@ class SighUpForm(forms.Form):
         user.save()
 
 
+class CommentForm(forms.Form):
+    text = forms.CharField()
+
 
 

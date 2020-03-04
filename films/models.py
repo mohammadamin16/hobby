@@ -1,5 +1,7 @@
 from django.db import models
 
+from accounts.models import Comment
+
 
 class Film(models.Model):
     title = models.CharField(max_length=100)
@@ -24,6 +26,7 @@ class Film(models.Model):
 
     search_time = models.IntegerField(default=0)
 
+    comments = models.ManyToManyField(Comment)
 
     def __str__(self):
         return self.title

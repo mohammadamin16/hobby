@@ -71,3 +71,14 @@ class User(AbstractBaseUser):
         "Is the user a member of staff?"
         # Simplest possible answer: All admins are staff
         return self.is_admin
+
+
+class Comment(models.Model):
+    text = models.CharField(max_length=1000)
+    writer = models.ForeignKey(User, on_delete=models.CASCADE)
+    date = models.DateField(auto_now_add=True)
+
+
+    def __str__(self):
+        return self.writer.username + " : " + self.text[:20]
+

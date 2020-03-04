@@ -16,7 +16,7 @@
     </form>
     <br>
     {% for film in list_of_films %}
-        <div class="card text-center m-5">
+        <div class="card text-center m-5" style="background-color: rgba(29,222,0,0.25)">
             <div class="card-header">
                 {{film.title}} ({{ film.year }})
                 <span class="badge badge-success"> {{ film.rating }} </span>
@@ -64,7 +64,7 @@
             </div>
 
             <div class="card-footer text-muted">
-                <a href="{% url 'films:film-view' film.imdbId %}" class="btn btn-primary">More</a>
+                <a href="{% url 'films:film-view' film.imdbId %}" class="btn btn-success" style="background-color: rgba(30,100,0,0.9)">More</a>
             </div>
         </div>
 
