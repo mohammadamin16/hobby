@@ -68,12 +68,21 @@ class AddToWatched(RedirectView):
         return super(AddToWatched, self).get(request, *args, **kwargs)
 
 
+class AddToFav(RedirectView):
+    url = reverse_lazy('accounts:profile')
+
+    def get(self, request, *args, **kwargs):
+        movie_id = self.kwargs['movie_id']
+        film = Film.objects.get(imdbId=movie_id)
+        self.request.user.fav_list.add(film)
+        self.request.user.save()
+        return super(AddToFav, self).get(request, *args, **kwargs)
+
+
 
 class ProfileView(DetailView):
     template_name = 'accounts/profile.html'
 
     def get_object(self, queryset=None):
-        print("*************************TEST***********************")
         user = User.objects.get(username=self.request.user.username)
-        print(user)
         return user

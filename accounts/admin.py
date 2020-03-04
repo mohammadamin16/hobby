@@ -66,8 +66,9 @@ class UserAdmin(BaseUserAdmin):
     ordering = ('username',)
     filter_horizontal = ()
     fieldsets = (
-        (None, {'fields': ('username', 'password', 'watched_films')}),
+        (None, {'fields': ('username', 'password',)}),
         ('Permissions', {'fields': ('is_admin',)}),
+        ('Films', {'fields': ('watched_films','fav_list')})
     )
     # add_fieldsets is not a standard ModelAdmin attribute. UserAdmin
     # overrides get_fieldsets to use this attribute when creating a user.
