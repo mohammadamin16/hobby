@@ -21,9 +21,11 @@
         </div>
         <div class="col float-right text-left">
         {% for title in user.watched_films|list_of_movies %}
+            <a href="{% url 'films:film-redirector' title %}">
             <span class="badge badge-secondary ml-4">
-                {{ title }}
+                 {{ title }}
             </span>
+            </a>
         <br>
         {% endfor %}
         </div>
@@ -36,9 +38,11 @@
         </div>
         <div class="col float-right text-left">
         {% for title in user.fav_list|list_of_movies %}
+            <a href="{% url 'films:film-redirector' title %}">
             <span class="badge badge-secondary ml-4">
                 {{ title }}
             </span>
+            </a>
         <br>
         {% endfor %}
         </div>

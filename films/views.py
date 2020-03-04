@@ -1,8 +1,9 @@
 from django.shortcuts import render
-from django.views.generic import FormView, ListView, DetailView
+from django.urls import reverse_lazy
+from django.views.generic import FormView, ListView, DetailView, RedirectView
 from django.views.generic.edit import FormMixin
 from films.imdbDB import search
-import threading
+from django.http import HttpResponseRedirect
 
 from films.models import Film
 from . import forms
@@ -42,3 +43,14 @@ class FilmView(DetailView):
                 **search.get_info(str(movie_id))
             )
         return film
+
+
+class FilmViewRedirector(RedirectView):
+
+    def get(self, request, *args, **kwargs):
+        print("****************************TEST***********************")
+        title = self.kwargs['movie_title']
+        print('title', title)
+        film = Film.objects.get(title=title)
+        print('film', film)
+        return HttpResponseRedirect(reverse_lazy('films:film-view', kwargs={'movie_id':film.imdbId}))
