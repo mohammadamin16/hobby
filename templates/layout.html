@@ -1,12 +1,21 @@
 {% load bootstrap4 %}
 {% load static %}
+{% load user_detail %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="{% static 'BS/bootstrap-4.3.1/dist/css/bootstrap.min.css' %}">
-    <script src="{% static 'BS/bootstrap-4.3.1/dist/js/bootstrap.min.js' %}"></script>
-    <script src="{% static 'BS/bootstrap-4.3.1/popper.min.js' %}"></script>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+{#    <link rel="stylesheet" href="{% static 'BS/bootstrap-4.3.1/dist/css/bootstrap.min.css' %}">#}
+{#    <script src="{% static 'BS/bootstrap-4.3.1/dist/js/bootstrap.min.js' %}"></script>#}
+{#    <script src="{% static 'BS/bootstrap-4.3.1/popper.min.js' %}"></script>#}
+{#    <script src="{% static 'BS/bootstrap-4.3.1/jquery.min.js' %}"></script>#}
+
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
     <title>{% block title %}Hobby{% endblock %}</title>
 </head>
 <body style="background-color: rgba(84,147,47,0.49)">
@@ -52,7 +61,10 @@
   </div>
 </nav>
 <div class="container pt-3">
-{% block body %}{% endblock %}
+    {% if msg %}
+    {{ msg|alert_info|safe }}
+    {% endif %}
+    {% block body %}{% endblock %}
 </div>
 </body>
 </html>
