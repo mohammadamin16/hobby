@@ -1,13 +1,14 @@
 {% extends 'layout.html' %}
 {% load bootstrap4 %}
+{% load bootstrap %}
 {% block title %}
 SignUp Page
 {% endblock %}
 {% block body %}
     <form action="" method="post">
-    {{ form.as_p }}
+    {{ form|bootstrap }}
         {% csrf_token %}
-    <input type="submit">
+    <input class="btn btn-primary" type="submit" value="Sign up">
     </form>
 {%  endblock %}
 

@@ -1,14 +1,15 @@
 {% extends 'layout.html' %}
 {% load bootstrap4 %}
+{% load bootstrap %}
 {#{% load movie_detail %}#}
 {% block title %}
     Search Page
 {% endblock %}
 {% block body %}
     <form action="" method="post">
-    {{ form.as_p }}
+    {{ form|bootstrap }}
         {% csrf_token %}
-    <input type="submit">
+    <input class="btn btn-primary" type="submit" value="search">
     </form>
     <br>
     {% for id,title in list_of_movies %}
