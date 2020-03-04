@@ -16,6 +16,7 @@
   </button>
   <div class="collapse navbar-collapse" id="navbarText">
     <ul class="navbar-nav mr-auto">
+      {% if user.is_authenticated %}
       <li class="nav-item active">
         <a class="nav-link" href="{% url 'accounts:profile' %}">
             {% if user.is_authenticated %}
@@ -23,15 +24,26 @@
             {% endif %}
       </li>
       <li class="nav-item">
-          <a class="nav-link" href="{% url 'accounts:login' %}">Login</a>
-      </li>
-      <li class="nav-item">
           <a class="nav-link" href="{% url 'accounts:logout' %}">Logout</a>
       </li>
+          {% else %}
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'accounts:signup' %}">Sign Up</a>
+      </li>
+      <li class="nav-item">
+          <a class="nav-link" href="{% url 'accounts:login' %}">Log in</a>
+      </li>
+    {% endif %}
       <li class="nav-item">
         <a class="nav-link" href="{% url 'films:search' %}">Films</a>
       </li>
     </ul>
+  {% if user.is_authenticated %}
+      <span class="navbar-text mr-5">
+
+      Hi {{ user.name }} !
+    </span>
+  {% endif %}
     <span class="navbar-text">
         Hobby is a social network for Hobbies!
     </span>

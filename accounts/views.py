@@ -1,12 +1,38 @@
 from django.contrib.auth import logout, login
 from django.shortcuts import render
 from django.urls import reverse, reverse_lazy
-from django.views.generic import FormView, DetailView, RedirectView
+from django.views.generic import FormView, DetailView, RedirectView, CreateView, TemplateView
+from django.contrib.auth.forms import UserCreationForm
 
 from django.contrib.auth.forms import AuthenticationForm
-
+from django.http import HttpResponseRedirect
+from accounts.forms import SighUpForm
 from accounts.models import User
 from films.models import Film
+
+
+class SignUpView(FormView):
+    def get(self, request, *args, **kwargs):
+        form = SighUpForm()
+
+        return render(request, 'accounts/signup.html', {'form':form})
+
+    def post(self, request, *args, **kwargs):
+        form = SighUpForm(request.POST)
+        if form.is_valid():
+            if form.cleaned_data['password1'] == form.cleaned_data['password2']:
+                username = form.cleaned_data['username']
+                password = form.cleaned_data['password1']
+                name = form.cleaned_data['full_name']
+                user = User.objects.create(
+                    username=username,
+                    password=password,
+                    name=name)
+                user.set_password(password)
+                user.save()
+                return HttpResponseRedirect(reverse_lazy('accounts:login'))
+
+        return HttpResponseRedirect(reverse_lazy('home'))
 
 
 class LoginView(FormView):

@@ -50,7 +50,7 @@ class User(AbstractBaseUser):
     objects = UserManager()
 
     # Hobby Fields:
-    watched_films = models.ManyToManyField('films.Film')
+    watched_films = models.ManyToManyField('films.Film', blank=True)
 
     def __str__(self):
         return self.username
