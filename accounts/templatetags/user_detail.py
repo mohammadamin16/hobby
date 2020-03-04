@@ -8,8 +8,11 @@ def list_of_movies(watched_films):
     titles = []
     for film in films:
         titles.append(film.title)
-    return ", \n".join(titles)
-
+    # return ", \n".join(titles)
+    if len(titles) == 0:
+        return 'Nothing!'
+    else:
+        return titles
 
 def alert_info(text):
     ALERT = """

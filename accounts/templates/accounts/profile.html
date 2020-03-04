@@ -2,42 +2,48 @@
 {% load bootstrap4 %}
 {% load user_detail %}
 {% block title %}
-{{ user }}
+{{ user }} Profile
 {% endblock %}
 {% block body %}
     <div class="container text-center">
     <p class="h1">{{ user.name }}</p>
-    <div class="badge btn-primary text-left">Username</div><span class="badge badge-secondary ml-4">{{ user.username }}</span>
-    <br>
-    <div class="badge btn-primary text-left">Watched Movies</div>
-    <span class="badge badge-secondary ml-4">
-        {% with user.watched_films as w %}
-            {% if w|list_of_movies|linebreaksbr == "" %}
-            Nothing Yet!
-            <a href="{% url 'films:search' %}">Add</a>
-            {% else %}
-                {{ w|list_of_movies|linebreaksbr }}
-            {% endif %}
-        {% endwith %}
-    </span>
-    <br>
-    <div class="badge btn-primary text-left">Favorite Movies</div>
-    <span class="badge badge-secondary ml-4">
-        {% with user.fav_list as w %}
-            {% if w|list_of_movies|linebreaksbr == "" %}
-            Nothing Yet!
-            <a href="{% url 'films:search' %}">Add</a>
-            {% else %}
-                {{ w|list_of_movies|linebreaksbr }}
-            {% endif %}
-        {% endwith %}
-    </span>
-    <br>
-
-
-
+    <div class="row">
+        <div class="col">
+            <p class="badge btn-primary float-right">Username :</p>
+        </div>
+        <div class="col">
+            <span class="badge badge-secondary ml-4 float-left">{{ user.username }}</span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+        <div class="badge btn-primary float-right">Watched Movies :</div>
+        </div>
+        <div class="col float-right text-left">
+        {% for title in user.watched_films|list_of_movies %}
+            <span class="badge badge-secondary ml-4">
+                {{ title }}
+            </span>
+        <br>
+        {% endfor %}
+        </div>
     </div>
 
 
+    <div class="row">
+        <div class="col">
+        <div class="badge btn-primary float-right">Favorite Films :</div>
+        </div>
+        <div class="col float-right text-left">
+        {% for title in user.fav_list|list_of_movies %}
+            <span class="badge badge-secondary ml-4">
+                {{ title }}
+            </span>
+        <br>
+        {% endfor %}
+        </div>
+    </div>
+
+    </div>
 
 {% endblock %}
