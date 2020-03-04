@@ -37,7 +37,8 @@
         <div class="badge btn-primary float-right">Favorite Films :</div>
         </div>
         <div class="col float-right text-left">
-        {% for title in user.fav_list|list_of_movies %}
+        {% if user.fav_list|list_of_movies != '' %}
+            {% for title in user.fav_list|list_of_movies %}
             <a href="{% url 'films:film-redirector' title %}">
             <span class="badge badge-secondary ml-4">
                 {{ title }}
@@ -45,6 +46,12 @@
             </a>
         <br>
         {% endfor %}
+
+        {% else %}
+        <span class="badge badge-secondary ml-4">
+        Nothing! <a href="{% url 'films:search' %}"> Add? </a>
+        </span>
+        {% endif %}
         </div>
     </div>
 

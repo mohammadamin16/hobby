@@ -48,9 +48,6 @@ class FilmView(DetailView):
 class FilmViewRedirector(RedirectView):
 
     def get(self, request, *args, **kwargs):
-        print("****************************TEST***********************")
         title = self.kwargs['movie_title']
-        print('title', title)
         film = Film.objects.get(title=title)
-        print('film', film)
         return HttpResponseRedirect(reverse_lazy('films:film-view', kwargs={'movie_id':film.imdbId}))

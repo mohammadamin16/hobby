@@ -10,7 +10,7 @@ def list_of_movies(watched_films):
         titles.append(film.title)
     # return ", \n".join(titles)
     if len(titles) == 0:
-        return 'Nothing!'
+        return ''
     else:
         return titles
 
