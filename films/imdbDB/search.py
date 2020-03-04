@@ -34,7 +34,10 @@ def get_info(movie_id: str):
     movie = ia.get_movie(movie_id)
     title = movie.get("title")
     year = movie.get("year")
-    cast_people = movie.get('cast')[0:5]
+    try:
+        cast_people = movie.get('cast')[0:5]
+    except (TypeError, KeyError):
+        cast_people = ""
     cast_names = []
     for c in cast_people:
         cast_names.append(c.get('name'))

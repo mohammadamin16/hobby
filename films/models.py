@@ -22,6 +22,8 @@ class Film(models.Model):
     # production_companies = models.CharField(max_length=150)
     synopsis = models.TextField()
 
+    search_time = models.IntegerField(default=0)
+
 
     def __str__(self):
         return self.title

@@ -17,28 +17,32 @@ class SearchView(FormMixin, ListView):
 
     def get(self, request, *args, **kwargs):
         form = self.form_class(initial=self.initial)
-        return render(request, self.template_name, {'form': form})
+        last_searched = Film.objects.order_by('-search_time')[:5]
+
+
+        return render(request, self.template_name, {'form': form, 'list_of_films': last_searched})
 
     def post(self, request, *args, **kwargs):
         form = self.form_class(request.POST)
         list_of_ids = []
         if form.is_valid():
             list_of_ids = form.send_query()
-        print("****************TEST**************")
-        print('list_of_ids', list_of_ids)
+
         list_of_films = []
         for imdbid in list_of_ids:
             try:
                 film = Film.objects.get(imdbId=imdbid)
-                print("FOUND!")
+                film.search_time += 1
+                film.save()
             except Film.DoesNotExist:
                 film = Film.objects.create(
                     **search.get_info(str(imdbid))
                 )
-                print("NOT FOUND!")
+                film.search_time += 1
+                film.save()
+
             list_of_films.append(film)
 
-        print(list_of_films)
         return render(request, self.template_name, {'form': form, 'list_of_films': list_of_films})
 
 
