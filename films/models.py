@@ -23,11 +23,8 @@ class Film(models.Model):
     synopsis = models.TextField()
 
 
-
-
     def __str__(self):
         return self.title
-
 
 
 class People(models.Model):

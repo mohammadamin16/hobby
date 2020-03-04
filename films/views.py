@@ -21,11 +21,25 @@ class SearchView(FormMixin, ListView):
 
     def post(self, request, *args, **kwargs):
         form = self.form_class(request.POST)
-        list_of_movies = []
+        list_of_ids = []
         if form.is_valid():
-            list_of_movies = form.send_query()
+            list_of_ids = form.send_query()
+        print("****************TEST**************")
+        print('list_of_ids', list_of_ids)
+        list_of_films = []
+        for imdbid in list_of_ids:
+            try:
+                film = Film.objects.get(imdbId=imdbid)
+                print("FOUND!")
+            except Film.DoesNotExist:
+                film = Film.objects.create(
+                    **search.get_info(str(imdbid))
+                )
+                print("NOT FOUND!")
+            list_of_films.append(film)
 
-        return render(request, self.template_name, {'form': form, 'list_of_movies': list_of_movies})
+        print(list_of_films)
+        return render(request, self.template_name, {'form': form, 'list_of_films': list_of_films})
 
 
 class FilmView(DetailView):

@@ -1,6 +1,10 @@
 {% extends 'layout.html' %}
 {% load bootstrap4 %}
 {% load bootstrap %}
+{% load static %}
+{% block style %}
+    <link rel="stylesheet" href="{% static 'styles/flip card.css' %}">
+{% endblock %}
 {% block title %}
     Search Page
 {% endblock %}
@@ -11,9 +15,56 @@
     <input class="btn btn-primary" type="submit" value="Go">
     </form>
     <br>
-    {% for id,title in list_of_movies %}
-        <a href="{% url 'films:film-view' id %}">
-        <p class="h1 text-center p-2 text-danger">{{title}}</p>
-        </a>
+    {% for film in list_of_films %}
+        <div class="card text-center m-5">
+            <div class="card-header">
+                {{film.title}} ({{ film.year }})
+                <span class="badge badge-success"> {{ film.rating }} </span>
+            </div>
+            <div class="card-body">
+
+                <div class="row">
+                    <div class="col">
+                    <img src="{{ film.cover_url }}">
+                    </div>
+                    <div class="col">
+                        <div class="row">
+                            <div class="col">
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="card-text">Director: </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="card-text">{{ film.director }}</div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="card-text">Writer: </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="card-text">{{ film.writer }}</div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="card-text">Country: </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="card-text">{{ film.countries }}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-footer text-muted">
+                <a href="{% url 'films:film-view' film.imdbId %}" class="btn btn-primary">More</a>
+            </div>
+        </div>
+
+
     {% endfor %}
 {% endblock %}

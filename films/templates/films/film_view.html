@@ -5,7 +5,14 @@
 Film View
 {% endblock %}
 {% block body %}
-    <div class="h1 text-center">{{ object.title }}<span class="badge badge-success badge-pill ml-3">{{ film.rating }}</span></div>
+    <div class="h1 text-center">{{ object.title }}
+        <a href="https://www.imdb.com/title/tt{{ film.imdbId }}/" target="_blank">
+            <span class="badge badge-success badge-pill ml-3">
+                {{ film.rating }}
+            </span>
+        </a>
+    </div>
+
     <div class="container align-self-center">
         <div class="row">
         <div class="col">

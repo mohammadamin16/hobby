@@ -10,5 +10,3 @@ class SearchForm(forms.Form):
 
         return search.search(q)
 
-
-

@@ -6,10 +6,10 @@ from imdb import IMDb
 
 def search(query: str):
     imdb = IMDb()
-    response = imdb.search_movie_advanced(query, sort='votes', results=10)
+    response = imdb.search_movie_advanced(query, sort='votes', results=5)
     results = []
     for movie in response:
-        m = (movie.getID(), movie['title'])
+        m = movie.getID()
         results.append(m)
 
     return results
@@ -38,11 +38,11 @@ def get_info(movie_id: str):
     cast_names = []
     for c in cast_people:
         cast_names.append(c.get('name'))
-    cast = " ".join(cast_names)
-    countries = " ".join(movie.get('countries'))
+    cast = ", ".join(cast_names)
+    countries = ", ".join(movie.get('countries'))
     try:
         box_office = movie.get("box office")['Budget']
-    except TypeError:
+    except (TypeError, KeyError):
         box_office = 0
     rating = movie.get('rating')
     votes = movie.get('votes')
@@ -50,15 +50,21 @@ def get_info(movie_id: str):
     fullsize_poster = movie.get_fullsizeURL()
     writer_people = movie.get('writer')
     write_names = []
-    for w in writer_people:
-        write_names.append(w.get('name'))
-    writer = " ".join(write_names)
+    try:
+        for w in writer_people:
+            write_names.append(w.get('name'))
+        writer = ", ".join(write_names)
+    except TypeError:
+        writer = ""
 
     director_people = movie.get('director')
     director_names = []
-    for d in director_people:
-        director_names.append(d.get('name'))
-    director = " ".join(director_names)
+    try:
+        for d in director_people:
+            director_names.append(d.get('name'))
+        director = ", ".join(director_names)
+    except TypeError:
+        director = ""
 
     top_250_films = 0 if str(movie.get('top 250 films')) == 'None' else movie.get('top 250 films')
     try:
