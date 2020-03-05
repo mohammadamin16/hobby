@@ -1,11 +1,13 @@
 from django.contrib.auth import logout, login
 from django.shortcuts import render
 from django.urls import reverse, reverse_lazy
-from django.views.generic import FormView, DetailView, RedirectView, CreateView, TemplateView
+from django.views.generic import FormView, DetailView, RedirectView, CreateView, TemplateView, ListView
 from django.contrib.auth.forms import UserCreationForm
 
 from django.contrib.auth.forms import AuthenticationForm
 from django.http import HttpResponseRedirect
+from django.views.generic.edit import FormMixin
+
 from accounts.forms import SighUpForm
 from accounts.models import User
 from films.models import Film
@@ -86,3 +88,13 @@ class ProfileView(DetailView):
     def get_object(self, queryset=None):
         user = User.objects.get(username=self.request.user.username)
         return user
+
+
+class FindPeopleView(FormMixin, ListView):
+    template_name = 'accounts/find_people.html'
+
+    def post(self, request, *args, **kwargs):
+        query = self.request.POST['query']
+        results = User.objects.filter(name__contains=query)
+        return render(request, self.template_name, {'results': results})
+

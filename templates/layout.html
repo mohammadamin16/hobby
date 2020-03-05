@@ -51,6 +51,18 @@
         <a class="nav-link" href="{% url 'films:search' %}">Films</a>
       </li>
     </ul>
+
+  <form class="form-inline" action="{% url 'accounts:find-people' %}" method="post">
+      {% csrf_token %}
+
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <input type="submit" class="input-group-text" id="basic-addon1" value="Go">
+      </div>
+      <input type="text" name='query' class="form-control" placeholder="search in people" aria-label="Username" aria-describedby="basic-addon1">
+    </div>
+  </form>
+
   {% if user.is_authenticated %}
       <span class="navbar-text mr-5">
 

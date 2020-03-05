@@ -11,4 +11,5 @@ urlpatterns = [
     path('profile', views.ProfileView.as_view(), name='profile'),
     path('add-to-watched/<movie_id>', views.AddToWatched.as_view(), name='add-to-watched'),
     path('add-to-fav/<movie_id>', views.AddToFav.as_view(), name='add-to-fav'),
+    path('search', views.FindPeopleView.as_view(), name='find-people'),
 ]

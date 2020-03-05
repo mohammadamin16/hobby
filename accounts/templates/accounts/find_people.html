@@ -1,10 +1,64 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+{% extends 'layout.html' %}
+{% block title %}
+    Find People
+{% endblock %}
+{% block body %}
+    <h1>Find People</h1>
+
+    {% for u in results %}
+        <div class="card text-center m-5" style="background-color: rgba(29,222,0,0.25)">
+            <div class="card-header">
+                {{film.title}} ({{ film.year }})
+                <span class="badge badge-success"> {{ film.rating }} </span>
+                {% if film.top_250_films != 0 %}
+                <span class="badge badge-danger"> Top {{ film.top_250_films }} IMDB </span>
+                {% endif %}
+            </div>
+            <div class="card-body">
+
+                <div class="row">
+                    <div class="col">
+                    <img src="{{ film.cover_url }}">
+                    </div>
+                    <div class="col">
+                        <div class="row">
+                            <div class="col">
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="card-text">Director: </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="card-text">{{ film.director }}</div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="card-text">Writer: </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="card-text">{{ film.writer }}</div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="card-text">Country: </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="card-text">{{ film.countries }}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-footer text-muted">
+{#                <a href="{% url 'films:film-view' film.imdbId %}" class="btn btn-success" style="background-color: rgba(30,100,0,0.9)">More</a>#}
+            </div>
+        </div>
+
+
+    {% endfor %}
+
+{% endblock %}
