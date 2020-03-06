@@ -15,6 +15,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.contrib.staticfiles.urls import static, staticfiles_urlpatterns
+from django.conf import settings
 
 from hobby import views
 
@@ -24,3 +26,5 @@ urlpatterns = [
     path('accounts/', include('accounts.urls', namespace='accounts')),
     path('films/', include('films.urls', namespace='films'))
 ]
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+urlpatterns += staticfiles_urlpatterns()

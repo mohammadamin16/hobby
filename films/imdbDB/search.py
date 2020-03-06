@@ -1,6 +1,7 @@
 """
 Search & access to imdb DataBase directly.
 """
+from django.db import IntegrityError
 from imdb import IMDb
 
 
@@ -45,10 +46,16 @@ def get_info(movie_id: str):
     countries = ", ".join(movie.get('countries'))
     try:
         box_office = movie.get("box office")['Budget']
-    except (TypeError, KeyError):
+    except (TypeError, KeyError, IntegrityError):
         box_office = 0
-    rating = movie.get('rating')
-    votes = movie.get('votes')
+    try:
+        rating = movie.get('rating')
+    except (TypeError, KeyError, IntegrityError):
+        rating = 0
+    try:
+        votes = movie.get('votes')
+    except (TypeError, KeyError, IntegrityError):
+        votes = 0
     cover_url = movie.get("cover url")
     fullsize_poster = movie.get_fullsizeURL()
     writer_people = movie.get('writer')

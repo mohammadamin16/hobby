@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.contrib.auth import logout, login
 from django.shortcuts import render
 from django.urls import reverse, reverse_lazy
@@ -11,6 +12,7 @@ from django.views.generic.edit import FormMixin
 from accounts.forms import SighUpForm
 from accounts.models import User
 from films.models import Film
+from hobby import urls
 
 
 class SignUpView(FormView):
@@ -86,6 +88,7 @@ class ProfileView(DetailView):
     template_name = 'accounts/profile.html'
 
     def get_object(self, queryset=None):
+        print(urls.urlpatterns)
         user = User.objects.get(username=self.request.user.username)
         return user
 

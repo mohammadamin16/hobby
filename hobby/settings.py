@@ -31,16 +31,16 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'accounts',
     'django.contrib.admin',
-    'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'films',
-    'accounts',
     'bootstrap4',
     'bootstrapform',
+    'django.contrib.auth',
 ]
 
 MIDDLEWARE = [
@@ -128,3 +128,6 @@ AUTH_USER_MODEL = 'accounts.User'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
 ]
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
+
