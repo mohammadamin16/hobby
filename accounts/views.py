@@ -2,11 +2,12 @@ from django.conf import settings
 from django.contrib.auth import logout, login
 from django.shortcuts import render
 from django.urls import reverse, reverse_lazy
+from django.utils.datastructures import MultiValueDictKeyError
 from django.views.generic import FormView, DetailView, RedirectView, CreateView, TemplateView, ListView
 from django.contrib.auth.forms import UserCreationForm
 
 from django.contrib.auth.forms import AuthenticationForm
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.views.generic.edit import FormMixin
 
 from accounts.forms import SighUpForm
@@ -88,9 +89,54 @@ class ProfileView(DetailView):
     template_name = 'accounts/profile.html'
 
     def get_object(self, queryset=None):
-        print(urls.urlpatterns)
         user = User.objects.get(username=self.request.user.username)
         return user
+
+
+class PageView(DetailView):
+    template_name = 'accounts/page.html'
+
+    def get_object(self, queryset=None):
+        user = User.objects.get(username=self.kwargs['username'])
+        return user
+
+
+class EditProfileView(FormMixin, DetailView):
+    template_name = 'accounts/edit-profile.html'
+    context_object_name = 'u'
+
+    def get_context_data(self, **kwargs):
+        # context = super(EditProfileView, self).get_context_data(**kwargs)
+        context = dict()
+        context[self.context_object_name] = self.get_object()
+        return context
+
+    def get(self, request, *args, **kwargs):
+
+        return render(request, self.template_name, self.get_context_data())
+
+
+    def get_object(self, queryset=None):
+        user = User.objects.get(username=self.request.user.username)
+        return user
+
+    def post(self, request, *args, **kwargs):
+        user = self.request.user
+
+        fullname = self.request.POST['name']
+        bio      = self.request.POST['bio']
+        try:
+            avatar   = self.request.FILES['avatar']
+        except MultiValueDictKeyError:
+            avatar = user.avatar
+
+
+        user.avatar = avatar
+        user.name = fullname
+        user.bio = bio
+        user.save()
+
+        return HttpResponseRedirect(reverse_lazy('accounts:profile'))
 
 
 class FindPeopleView(FormMixin, ListView):

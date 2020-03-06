@@ -2,14 +2,13 @@
 {% load bootstrap4 %}
 {% load user_detail %}
 {% block title %}
-{{ user }} Profile
+{{ u }} Page
 {% endblock %}
 {% block body %}
     <div class="container text-center">
     <p class="h1">{{ user.name }}</p>
     <img src="{{ user.avatar.url }}" alt="Avatar" width="100">
-    <hr>
-        <div class="row">
+    <div class="row">
         <div class="col">
             <p class="badge btn-primary float-right">Username :</p>
         </div>
@@ -56,7 +55,7 @@
         {% endif %}
         </div>
     </div>
-    <a class="btn btn-info mt-3" href="{% url 'accounts:user-edit' %}">Edit Profile</a>
+
     </div>
 
 {% endblock %}

@@ -41,6 +41,7 @@ class User(AbstractBaseUser):
     password = models.CharField(max_length=100)
     name = models.CharField(max_length=100)
     avatar = models.ImageField(upload_to='avatars/', default='No-Image')
+    bio = models.CharField(max_length=1000)
 
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
