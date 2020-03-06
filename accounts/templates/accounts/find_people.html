@@ -1,10 +1,11 @@
 {% extends 'layout.html' %}
 {% load user_detail %}
+{% load static %}
 {% block style %}
 <meta charset="utf-8">
     <meta name="robots" content="noindex, nofollow">
 
-    <title>List - Grid View Example On Button Click using Bootstrap 4 - Bootsnipp.com</title>
+    <title>Search in People</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <style type="text/css">
@@ -104,17 +105,23 @@
     <div id="products" class="row view-group">
         {% for u in results %}
                 <div class="item col-xs-4 col-lg-4  bg-transparent">
-                    <div class="thumbnail card bg-dark">
+                    <div class="thumbnail card bg-dark text-white">
                         <div class="img-event">
-                            <img class="group list-group-image rounded-circle" src="{{ u.avatar.url }}" alt="user avatar" width="100" height="100"/>
+                            {% if u.avatar %}
+                                <img class="group list-group-image rounded-circle" src="{{ u.avatar.url }}" alt="user avatar" width="100" height="100"/>
+                            {% else %}
+                                <img class="group list-group-image p-3" src={% static 'img/user.png' %} alt="user avatar" width="100" height="100"/>
+
+                            {% endif %}
                         </div>
                         <div class="caption card-body">
                             <h4 class="group card-title inner list-group-item-heading">@{{ u.username }}</h4>
                             <p class="group inner list-group-item-text">
                                 {{ u.name }}</p>
                             <div class="row">
-                                <div class="col-xs-12 col-md-1 align-self-center">
-                                    <p class="badge badge-success" style="font-size: small">Last Watched:{{ u.watched_films|last_movie }}</p>
+                                <div class="col col-xs-12 col-md-1 align-self-center">
+                                    <p class="badge badge-success" style="font-size: small">Last Watched:</p>
+                                    <p class="badge badge-success" style="font-size: small">{{ u.last_watched_film.title }}</p>
                                 </div>
                             </div>
                             <div class="row">

@@ -12,6 +12,8 @@ urlpatterns = [
     path('page/<username>', views.PageView.as_view(), name='user-page'),
     path('edit', views.EditProfileView.as_view(), name='user-edit'),
     path('add-to-watched/<movie_id>', views.AddToWatched.as_view(), name='add-to-watched'),
+    path('remove-from-watched/<movie_id>', views.RemoveFromWatched.as_view(), name='remove-from-watched'),
+    path('remove-from-favs/<movie_id>', views.RemoveFromFavs.as_view(), name='remove-from-favs'),
     path('add-to-fav/<movie_id>', views.AddToFav.as_view(), name='add-to-fav'),
     path('search', views.FindPeopleView.as_view(), name='find-people'),
 ]

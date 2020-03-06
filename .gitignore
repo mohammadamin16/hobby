@@ -12,6 +12,8 @@ hobby/__pycache__
 accounts/_ycache__
 hobby/__pycache__/
 accounts/__pycache__/
+accounts/templatetags/__pycache__/
+films/templatetags/__pycache__/
 local_settings.py
 db.sqlite3
 db.sqlite3-journal

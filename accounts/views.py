@@ -63,7 +63,6 @@ class LogoutView(RedirectView):
 
 
 class AddToWatched(RedirectView):
-    url = reverse_lazy('accounts:profile')
 
     def get(self, request, *args, **kwargs):
         movie_id = self.kwargs['movie_id']
@@ -71,6 +70,10 @@ class AddToWatched(RedirectView):
         self.request.user.watched_films.add(film)
         self.request.user.save()
         return super(AddToWatched, self).get(request, *args, **kwargs)
+
+    def get_redirect_url(self, *args, **kwargs):
+        return reverse_lazy('films:film-view', kwargs={'movie_id': self.kwargs['movie_id']})
+
 
 
 class AddToFav(RedirectView):
@@ -83,6 +86,34 @@ class AddToFav(RedirectView):
         self.request.user.save()
         return super(AddToFav, self).get(request, *args, **kwargs)
 
+    def get_redirect_url(self, *args, **kwargs):
+        return reverse_lazy('films:film-view', kwargs={'movie_id': self.kwargs['movie_id']})
+
+
+
+class RemoveFromWatched(RedirectView):
+
+    def get(self, request, *args, **kwargs):
+        movie_id = self.kwargs['movie_id']
+        film = Film.objects.get(imdbId=movie_id)
+        self.request.user.watched_films.remove(film)
+        self.request.user.save()
+        return super(RemoveFromWatched, self).get(request, *args, **kwargs)
+
+    def get_redirect_url(self, *args, **kwargs):
+        return reverse_lazy('films:film-view', kwargs={'movie_id': self.kwargs['movie_id']})
+
+
+class RemoveFromFavs(RedirectView):
+    def get(self, request, *args, **kwargs):
+        movie_id = self.kwargs['movie_id']
+        film = Film.objects.get(imdbId=movie_id)
+        self.request.user.fav_list.remove(film)
+        self.request.user.save()
+        return super(RemoveFromFavs, self).get(request, *args, **kwargs)
+
+    def get_redirect_url(self, *args, **kwargs):
+        return reverse_lazy('films:film-view', kwargs={'movie_id': self.kwargs['movie_id']})
 
 
 class ProfileView(DetailView):

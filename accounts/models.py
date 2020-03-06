@@ -54,6 +54,7 @@ class User(AbstractBaseUser):
     # Hobby Fields:
     watched_films = models.ManyToManyField('films.Film', blank=True, related_name='watched')
     fav_list      = models.ManyToManyField('films.Film', blank=True, related_name='fav')
+    last_watched_film = models.ForeignKey('films.Film', on_delete=models.CASCADE, blank=True, related_name='lastWatched')
 
     def __str__(self):
         return self.username

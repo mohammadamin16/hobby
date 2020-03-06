@@ -14,6 +14,20 @@ def list_of_movies(watched_films):
         return titles
 
 
+def in_watched(user, film):
+    if film in user.watched_films.all():
+        return True
+    else:
+        return False
+
+
+def in_favs(user, film):
+    if film in user.fav_list.all():
+        return True
+    else:
+        return False
+
+
 def titles_of_movies(watched_films):
     films = watched_films.all()
     titles = []
@@ -40,6 +54,8 @@ def alert_info(text):
 
 
 register.filter('list_of_movies', list_of_movies)
+register.filter('in_favs', in_favs)
+register.filter('in_watched', in_watched)
 register.filter('titles_of_movies', titles_of_movies)
 register.filter('last_movie', last_movie)
 register.filter('alert_info', alert_info)
