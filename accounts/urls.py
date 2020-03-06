@@ -16,4 +16,8 @@ urlpatterns = [
     path('remove-from-favs/<movie_id>', views.RemoveFromFavs.as_view(), name='remove-from-favs'),
     path('add-to-fav/<movie_id>', views.AddToFav.as_view(), name='add-to-fav'),
     path('search', views.FindPeopleView.as_view(), name='find-people'),
+    path('add-to-requested/<username>', views.AddToRequested.as_view(), name='add-to-requested'),
+    path('notification', views.NotificationView.as_view(), name='notification'),
+    path('add-to-friends/<username>', views.AddToFriends.as_view(), name='add-to-friends'),
+    path('reject/<username>', views.Reject.as_view(), name='reject'),
 ]

@@ -178,3 +178,56 @@ class FindPeopleView(FormMixin, ListView):
         results = User.objects.filter(name__contains=query)
         return render(request, self.template_name, {'results': results})
 
+
+class AddToRequested(RedirectView):
+
+    def get(self, request, *args, **kwargs):
+        requested_friend_username = self.kwargs['username']
+        requested_friend = User.objects.get(username=requested_friend_username)
+        user = User.objects.get(username=self.request.user.username)
+        requested_friend.requested_users.add(user)
+        requested_friend.save()
+        return super(AddToRequested, self).get(request, *args, **kwargs)
+
+    def get_redirect_url(self, *args, **kwargs):
+        return reverse_lazy('accounts:user-page', kwargs={'username': self.kwargs['username']})
+
+
+class NotificationView(FormMixin, ListView):
+    template_name = 'accounts/notification-view.html'
+
+    def get(self, request, *args, **kwargs):
+        user = self.request.user
+        results = user.requested_users.all()
+        return render(request, self.template_name, {'results': results})
+
+
+class AddToFriends(RedirectView):
+
+    def get(self, request, *args, **kwargs):
+        user = self.request.user
+        friend_username = self.kwargs['username']
+        friend = User.objects.get(username=friend_username)
+        user.friends.add(friend)
+        user.requested_users.remove(friend)
+        user.save()
+        return super(AddToFriends, self).get(request, *args, **kwargs)
+
+    def get_redirect_url(self, *args, **kwargs):
+        return reverse_lazy('accounts:notification')
+
+
+class Reject(RedirectView):
+
+    def get(self, request, *args, **kwargs):
+        user = self.request.user
+        friend_username = self.kwargs['username']
+        friend = User.objects.get(username=friend_username)
+        user.requested_users.remove(friend)
+        user.save()
+        return super(Reject, self).get(request, *args, **kwargs)
+
+    def get_redirect_url(self, *args, **kwargs):
+        return reverse_lazy('accounts:notification')
+
+

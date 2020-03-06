@@ -39,6 +39,10 @@
       <li class="nav-item">
           <a class="nav-link" href="{% url 'accounts:logout' %}">Logout</a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'accounts:notification' %}">Notification</a>
+      </li>
+
           {% else %}
         <li class="nav-item">
           <a class="nav-link" href="{% url 'accounts:signup' %}">Sign Up</a>
@@ -50,6 +54,8 @@
       <li class="nav-item">
         <a class="nav-link" href="{% url 'films:search' %}">Films</a>
       </li>
+
+
     </ul>
 
   <form class="form-inline mr-5" action="{% url 'accounts:find-people' %}" method="post">
