@@ -231,3 +231,25 @@ class Reject(RedirectView):
         return reverse_lazy('accounts:notification')
 
 
+class CreateSuggestView(TemplateView):
+    template_name = 'accounts/suggest.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(CreateSuggestView, self).get_context_data(**kwargs)
+        movie_id = self.kwargs['movie_id']
+        film = Film.objects.get(imdbId=movie_id)
+        context['film'] = film
+        return context
+
+
+    def get(self, request, *args, **kwargs):
+        return super(CreateSuggestView, self).get(request, *args, **kwargs)
+
+
+    def post(self, request, *args, **kwargs):
+
+
+
+        return super(CreateSuggestView, self).get(request, *args, **kwargs)
+
+

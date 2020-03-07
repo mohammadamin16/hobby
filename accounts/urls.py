@@ -20,4 +20,5 @@ urlpatterns = [
     path('notification', views.NotificationView.as_view(), name='notification'),
     path('add-to-friends/<username>', views.AddToFriends.as_view(), name='add-to-friends'),
     path('reject/<username>', views.Reject.as_view(), name='reject'),
+    path('suggest/<movie_id>', views.CreateSuggestView.as_view(), name='suggest'),
 ]

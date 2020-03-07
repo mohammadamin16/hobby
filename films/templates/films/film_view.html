@@ -63,9 +63,13 @@ Film View
             {% endif %}
         </div>
             <div class="col-2">
-            <img class="img-thumbnail rounded" src="{{ film.cover_url }}">
-
-            <a href="{{ film.fullsize_poster }}" download><button class="btn btn-outline-info mt-3">Download</button></a>
+            <a href="{{ film.fullsize_poster }}" download>
+                <img class="img-thumbnail rounded" src="{{ film.cover_url }}" alt="Film-poster">
+            </a>
+                <a href="{% url 'accounts:suggest' film.imdbId %}">
+                <img class="p-3" src="{% static 'img/suggest.png' %}" width="100">
+                </a>
+{#            <button class="btn btn-outline-info mt-3">Download</button>#}
 
             </div>
         </div>
@@ -92,7 +96,8 @@ Film View
         <form class="form-inline" action="" method="post">
             {% csrf_token %}
                 <div class="input-group">
-                    <input name="text" type="text"  class="form-control" placeholder="Share you idea..." aria-label="Username" aria-describedby="basic-addon1">
+                    <input name="text" type="text"  class="form-control" placeholder="Share you idea..."
+                           aria-label="Username" aria-describedby="basic-addon1">
                 <div class="input-group-prepend">
                     <input type="submit" class="input-group-text" id="basic-addon1" value="Comment">
                 </div>

@@ -35,3 +35,14 @@ class Film(models.Model):
 class People(models.Model):
     name = models.CharField(max_length=100)
     imdbId = models.CharField(max_length=100, primary_key=True)
+
+
+
+class Suggest(models.Model):
+    suggester = models.ForeignKey('accounts.User', on_delete=models.CASCADE)
+    film = models.ForeignKey('films.Film', on_delete=models.CASCADE)
+    text = models.CharField(max_length=500)
+
+
+
+

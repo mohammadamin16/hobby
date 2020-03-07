@@ -4,11 +4,11 @@ from django.views.generic import FormView, ListView, DetailView, RedirectView
 from django.views.generic.edit import FormMixin
 
 from accounts.forms import CommentForm
-from accounts.models import Comment
+from accounts.models import Comment, User
 from films.imdbDB import search
 from django.http import HttpResponseRedirect
 
-from films.models import Film
+from films.models import Film, Suggest
 from . import forms
 
 
@@ -95,3 +95,28 @@ class FilmViewRedirector(RedirectView):
         title = self.kwargs['movie_title']
         film = Film.objects.get(title=title)
         return HttpResponseRedirect(reverse_lazy('films:film-view', kwargs={'movie_id':film.imdbId}))
+
+
+#
+# class AddSuggestion(RedirectView):
+#
+#     def get(self, request, *args, **kwargs):
+#         user = User.objects.get(username=self.request.user.username)
+#         movie_id = self.kwargs['movie_id']
+#         film = Film.objects.get(imdbId=movie_id)
+#         friends = user.friends.all()
+#         suggest = Suggest.objects.create(
+#             suggester=user,
+#             film=film,
+#             #TODO:Add a page for suggestion, a page for inserting the text and to who (default to all friends)
+#         )
+#
+#
+#         requested_friend.save()
+#         return super(AddToRequested, self).get(request, *args, **kwargs)
+#
+#     def get_redirect_url(self, *args, **kwargs):
+#         return reverse_lazy('accounts:user-page', kwargs={'username': self.kwargs['username']})
+
+
+
